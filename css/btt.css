@@ -1,0 +1,53 @@
+h1 {
+	text-align: center;
+	font-family: helvetica;
+}
+
+.board {
+	border: 1px solid black;
+	height: 600px;
+	width: 600px;
+	margin: 0 auto;
+	border-bottom: none;
+}
+
+.outer-row {
+	height: 199px;
+	width: 100%;
+	border-bottom: 1px solid black;
+
+}
+
+.outer-cell {
+	height: 100%;
+	width: 33.1%;
+	border-right: 1px solid black;
+	float: left;
+
+}
+
+.outer-cell:last-child {
+	border: none;
+}
+
+.inner-row {
+/*	height: 33.15%;
+	width: 100%;
+	border-bottom: 1px solid black;*/
+	height: 53px;
+	width: 80%;
+	margin: 0 auto;
+	background: red;
+	border-top: 1px solid black;
+}
+
+.inner-row:first-child {
+	margin-top: 20px;
+	border: none;
+}
+
+.inner-cell {
+	
+	
+	
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" type="text/css" href="css/btt.css">
+  </head>
+	
+  <body>
+		<!-- <h1>Big Tac Toe</h1> -->
+		<div class="btt">
+			<div class="board"></div>
+			
+			<div class="win-msg"></div>
+		</div>
+		
+    <script src="js/jquery-2.1.1.js"></script>
+    <!-- Whackjobs at GithubPages don't understand symlinks... -->
+
+    <script src="js/btt-view.js"></script>
+    <script src="js/btt.js"></script>
+
+    <script>
+      // Write your code here.
+			$(function () {
+				new BTT.View($("div.btt"));
+			});
+    </script>
+  </body>
+</html>
