@@ -55,7 +55,7 @@
 		}
 
 		if (littleGame.isOver() && littleGame.winner() != null) {
-			$bigSquare.text(littleGame.winner());
+			$bigSquare.text(littleGame.winner().toUpperCase());
 		}
 		
 		// if (game.board.isEmptyPos(innerPos)) {
@@ -82,6 +82,10 @@
 		// 	// 	$(".win-msg").append("draw");
 		// 	// }
 		// }
+		
+		if (this.game.isOver()) {
+			alert(this.game.winner() + " wins!");
+		}
   };
 	
 	

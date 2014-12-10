@@ -167,9 +167,9 @@
 			this.board.grid[outerPos[0]][outerPos[1]] = littleGame.winner();
 		}
 
-		if (this.isOver()) {
-			alert("good job, " + this.winner() + " wins");
-		}
+		// if (this.isOver()) {
+		// 	alert(this.winner() + " wins!");
+		// }
 	};
 	
 	var BigBoard = BTT.BigBoard = function () {
