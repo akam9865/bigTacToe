@@ -5,67 +5,83 @@
 	
 	var View = BTT.View = function ($boardEl) {
 		this.$boardEl = $boardEl;
-		this.game = makeBoardGrid();
-		this.currentPlayer = "x";
+		this.game = new BTT.BigGame();
 
 		this.setupBoards();
 		this.bindEvents();
 	};
 	
-	function makeBoardGrid() {
-		var grid = [];
-		
-		for (var i = 0; i < 3; i++) {
-			grid.push([]);
-			for (var j = 0; j < 3; j++) {
-
-				grid[i].push(new BTT.LittleGame());
-			}
-		}
-		return grid;
-	};
+	// function makeBoardGrid() {
+	// 	var grid = [];
+	//
+	// 	for (var i = 0; i < 3; i++) {
+	// 		grid.push([]);
+	// 		for (var j = 0; j < 3; j++) {
+	//
+	// 			grid[i].push(new BTT.LittleGame());
+	// 		}
+	// 	}
+	// 	return grid;
+	// };
 	
 	View.prototype.bindEvents = function () {
 		var view = this;
+		
 		this.$boardEl.on("click", "div.outer-cell", function (event){
 			var $littleSquare = $(event.target);
 			var $bigSquare = $(event.currentTarget);
 
-			view.makeMove($littleSquare, $bigSquare);
-			
-		}).bind(this);
+			view.makeMove($littleSquare, $bigSquare);			
+		});
 	};
 	
   View.prototype.makeMove = function ($littleSquare, $bigSquare) {
 		var innerPos = $littleSquare.data("inner-pos");
 		var outerPos = $bigSquare.data("outer-pos");
-		var game = this.game[outerPos[0]][outerPos[1]];
-
 		
-		if (game.board.isEmptyPos(innerPos)) {
-			game.playMove(innerPos, this.currentPlayer);
+		var littleGame = this.game.board.grid[outerPos[0]][outerPos[1]];
 
-			$littleSquare.addClass(this.currentPlayer);
-			$littleSquare.text(this.currentPlayer);
-			this.swapTurn();
+		// eventually handle more conditions
+		// probably with helper function from BigBoard class
+		
+		if (littleGame.board.isEmptyPos(innerPos)) {
+			this.game.playMove(innerPos, outerPos, littleGame);
+			$littleSquare.addClass(this.game.currentPlayer);
+			$littleSquare.text(this.game.currentPlayer);
 			
+			this.game.swapTurn();
 		} else {
 			alert("square is already occupied");
 		}
-		
-		if (game.isOver()) {
-			// this.$boardEl.off("click");
-			// turn off only this specific board
-			
-			var winner = game.winner();
-			$bigSquare.text(winner.toUpperCase());
-			
-			// if (winner) {
-			// 	$(".win-msg").append(winner + " wins");
-			// } else {
-			// 	$(".win-msg").append("draw");
-			// }
+
+		if (littleGame.isOver() && littleGame.winner() != null) {
+			$bigSquare.text(littleGame.winner());
 		}
+		
+		// if (game.board.isEmptyPos(innerPos)) {
+		// 	game.playMove(innerPos, this.currentPlayer);
+		//
+		// 	$littleSquare.addClass(this.currentPlayer);
+		// 	$littleSquare.text(this.currentPlayer);
+		// 	this.swapTurn();
+		//
+		// } else {
+		// 	alert("square is already occupied");
+		// }
+		
+		// if (game.isOver()) {
+		// 	// this.$boardEl.off("click");
+		// 	// turn off only this specific board
+		//
+		// 	var winner = game.winner();
+		// 	$bigSquare.text(winner.toUpperCase());
+		//
+		// 	// if (winner) {
+		// 	// 	$(".win-msg").append(winner + " wins");
+		// 	// } else {
+		// 	// 	$(".win-msg").append("draw");
+		// 	// }
+		// }
   };
 	
 	
@@ -88,13 +104,13 @@
 		}
 	};
 	
-	View.prototype.swapTurn = function () {
-	  if (this.currentPlayer === "x") {
-	    this.currentPlayer = "o";
-	  } else {
-	    this.currentPlayer = "x";
-	  }
-	};
+	// View.prototype.swapTurn = function () {
+	//   if (this.currentPlayer === "x") {
+	//     this.currentPlayer = "o";
+	//   } else {
+	//     this.currentPlayer = "x";
+	//   }
+	// };
 	
 
 	View.prototype.setupBigBoard = function (){

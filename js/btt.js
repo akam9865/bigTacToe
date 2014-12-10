@@ -128,7 +128,6 @@
 	
 	var LittleGame = BTT.LittleGame = function () {
 		this.board = new BTT.LittleBoard();
-		this.currentPlayer = "x";
 	};
 
 	LittleGame.prototype = new Game();
@@ -138,19 +137,39 @@
 	};
 
 	// should only be a BigGame method
-	LittleGame.prototype.swapTurn = function () {
-	  if (this.currentPlayer === this.board.marks[0]) {
-	    this.currentPlayer = this.board.marks[1];
-	  } else {
-	    this.currentPlayer = this.board.marks[0];
-	  }
-	};
-
-
+	// LittleGame.prototype.swapTurn = function () {
+	//   if (this.currentPlayer === this.board.marks[0]) {
+	//     this.currentPlayer = this.board.marks[1];
+	//   } else {
+	//     this.currentPlayer = this.board.marks[0];
+	//   }
+	// };
 	
 	var BigGame = BTT.BigGame = function () {
-		this.board = makeBigGrid();
+		this.board = new BTT.BigBoard();
 		this.currentPlayer = "x";
+	};
+	
+	BigGame.prototype = new Game();
+	
+	BigGame.prototype.swapTurn = function () {
+		if (this.currentPlayer === this.board.marks[0]) {
+				this.currentPlayer = this.board.marks[1];
+			} else {
+				this.currentPlayer = this.board.marks[0];
+		}
+	};
+	
+	BigGame.prototype.playMove = function (innerPos, outerPos, littleGame) {
+		littleGame.playMove(innerPos, this.currentPlayer);
+
+		if (littleGame.isOver()) {
+			this.board.grid[outerPos[0]][outerPos[1]] = littleGame.winner();
+		}
+
+		if (this.isOver()) {
+			alert("good job, " + this.winner() + " wins");
+		}
 	};
 	
 	var BigBoard = BTT.BigBoard = function () {
@@ -158,6 +177,13 @@
 	};
 	
 	BigBoard.prototype = new Board();
+	
+	
+	BigBoard.prototype.isEmptyPos = function (pos) {
+		var check = this.grid[pos[0]][pos[1]]
+		return (check !== "x" && check !== "o")
+	}; 
+	
 	
 	function makeBigGrid() {
 		var grid = [];
