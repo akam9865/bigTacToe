@@ -6,6 +6,7 @@
 	var View = BTT.View = function ($boardEl) {
 		this.$boardEl = $boardEl;
 		this.game = makeBoardGrid();
+		this.currentPlayer = "x"
 
 		this.setupBoards();
 		this.bindEvents();
@@ -40,13 +41,14 @@
 		var outerPos = $bigSquare.data("outer-pos");
 		var game = this.game[outerPos[0]][outerPos[1]];
 
-		var currentPlayer = game.currentPlayer;
 		
 		if (game.board.isEmptyPos(innerPos)) {
-			game.playMove(innerPos);
-			$littleSquare.addClass(currentPlayer);
-			$littleSquare.text(currentPlayer);
+			game.playMove(innerPos, this.currentPlayer);
 
+			$littleSquare.addClass(this.currentPlayer);
+			$littleSquare.text(this.currentPlayer);
+			this.swapTurn();
+			
 		} else {
 			alert("square is already occupied");
 		}
@@ -84,6 +86,14 @@
 				$($bigBoard[k]).append($row);
 			}
 		}
+	};
+	
+	View.prototype.swapTurn = function () {
+	  if (this.currentPlayer === "x") {
+	    this.currentPlayer = "o";
+	  } else {
+	    this.currentPlayer = "x";
+	  }
 	};
 	
 

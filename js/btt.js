@@ -112,15 +112,19 @@
 	var Game = BTT.Game = function () {
 		this.board = new BTT.LittleBoard();
 		this.currentPlayer = "x";
-	}
-	
+	};
+
 	Game.prototype.isOver = function () {
 	  return this.board.isOver();
 	};
 
-	Game.prototype.playMove = function (pos) {
-	  this.board.placeMark(pos, this.currentPlayer);
-	  this.swapTurn();
+	// Game.prototype.playMove = function (pos) {
+	//   this.board.placeMark(pos, this.currentPlayer);
+	//   this.swapTurn();
+	// };
+	
+	Game.prototype.playMove = function (pos, player) {
+	  this.board.placeMark(pos, player);
 	};
 
 	// Game.prototype.promptMove = function (reader, callback) {
