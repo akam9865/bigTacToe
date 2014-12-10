@@ -7,12 +7,6 @@
 		this.marks = ["x", "o"];
 	};
 	
-	Board.prototype.isValidPos = function (pos) {
-	  return (
-	    (0 <= pos[0]) && (pos[0] < 3) && (0 <= pos[1]) && (pos[1] < 3)
-	  );
-	};
-	
 	Board.prototype.isOver = function () {
 	  if (this.winner() != null) {
 	    return true;
@@ -76,7 +70,7 @@
 	};
 
 	var LittleBoard = BTT.LittleBoard = function () {
-		this.grid = makeGrid();
+		this.grid = makeSmallGrid();
 		this.marks = ["x", "o"];
 	};
 	
@@ -86,7 +80,7 @@
 	// pass in 'new LittleBoard' when constructing
 	// bigBoard grid?
 	
-	function makeGrid() {
+	function makeSmallGrid() {
 	  var grid = [];
 
 	  for (var i = 0; i < 3; i++) {
@@ -97,6 +91,12 @@
 	  }
 
 	  return grid;
+	};
+	
+	LittleBoard.prototype.isValidPos = function (pos) {
+	  return (
+	    (0 <= pos[0]) && (pos[0] < 3) && (0 <= pos[1]) && (pos[1] < 3)
+	  );
 	};
 	
 	LittleBoard.prototype.isEmptyPos = function (pos) {
@@ -114,21 +114,30 @@
 
 	  this.grid[pos[0]][pos[1]] = mark;
 	};
+	
+	var Game = BTT.Game = function () {
+	};
 
+	Game.prototype.isOver = function () {
+		return this.board.isOver();
+	};
+	
+	Game.prototype.winner = function () {
+	  return this.board.winner();
+	};
 	
 	var LittleGame = BTT.LittleGame = function () {
 		this.board = new BTT.LittleBoard();
 		this.currentPlayer = "x";
 	};
 
-	LittleGame.prototype.isOver = function () {
-	  return this.board.isOver();
-	};
+	LittleGame.prototype = new Game();
 
 	LittleGame.prototype.playMove = function (pos, player) {
 	  this.board.placeMark(pos, player);
 	};
 
+	// should only be a BigGame method
 	LittleGame.prototype.swapTurn = function () {
 	  if (this.currentPlayer === this.board.marks[0]) {
 	    this.currentPlayer = this.board.marks[1];
@@ -137,21 +146,20 @@
 	  }
 	};
 
-	LittleGame.prototype.winner = function () {
-	  return this.board.winner();
-	};
-	
-	
-	
+
 	
 	var BigGame = BTT.BigGame = function () {
-		this.board = makeBoardGrid();
+		this.board = makeBigGrid();
 		this.currentPlayer = "x";
 	};
 	
+	var BigBoard = BTT.BigBoard = function () {
+		this.grid = makeBigGrid();
+	};
 	
+	BigBoard.prototype = new Board();
 	
-	function makeBoardGrid() {
+	function makeBigGrid() {
 		var grid = [];
 		
 		for (var i = 0; i < 3; i++) {
