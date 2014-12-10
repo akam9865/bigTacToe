@@ -69,16 +69,13 @@
 	  return null;
 	};
 
+
 	var LittleBoard = BTT.LittleBoard = function () {
 		this.grid = makeSmallGrid();
 		this.marks = ["x", "o"];
 	};
 	
 	LittleBoard.prototype = new Board();
-	
-	// can I add makeGrid to top level board class,
-	// pass in 'new LittleBoard' when constructing
-	// bigBoard grid?
 	
 	function makeSmallGrid() {
 	  var grid = [];
@@ -115,8 +112,8 @@
 	  this.grid[pos[0]][pos[1]] = mark;
 	};
 	
-	var Game = BTT.Game = function () {
-	};
+	
+	var Game = BTT.Game = function () {};
 
 	Game.prototype.isOver = function () {
 		return this.board.isOver();
@@ -125,6 +122,7 @@
 	Game.prototype.winner = function () {
 	  return this.board.winner();
 	};
+	
 	
 	var LittleGame = BTT.LittleGame = function () {
 		this.board = new BTT.LittleBoard();
@@ -136,14 +134,6 @@
 	  this.board.placeMark(pos, player);
 	};
 
-	// should only be a BigGame method
-	// LittleGame.prototype.swapTurn = function () {
-	//   if (this.currentPlayer === this.board.marks[0]) {
-	//     this.currentPlayer = this.board.marks[1];
-	//   } else {
-	//     this.currentPlayer = this.board.marks[0];
-	//   }
-	// };
 	
 	var BigGame = BTT.BigGame = function () {
 		this.board = new BTT.BigBoard();
@@ -166,11 +156,8 @@
 		if (littleGame.isOver()) {
 			this.board.grid[outerPos[0]][outerPos[1]] = littleGame.winner();
 		}
-
-		// if (this.isOver()) {
-		// 	alert(this.winner() + " wins!");
-		// }
 	};
+	
 	
 	var BigBoard = BTT.BigBoard = function () {
 		this.grid = makeBigGrid();
@@ -178,24 +165,22 @@
 	
 	BigBoard.prototype = new Board();
 	
-	
 	BigBoard.prototype.isEmptyPos = function (pos) {
 		var check = this.grid[pos[0]][pos[1]]
 		return (check !== "x" && check !== "o")
 	}; 
-	
 	
 	function makeBigGrid() {
 		var grid = [];
 		
 		for (var i = 0; i < 3; i++) {
 			grid.push([]);
+			
 			for (var j = 0; j < 3; j++) {
-
 				grid[i].push(new BTT.LittleGame());
 			}
 		}
+		
 		return grid;
 	};
-	
 })();

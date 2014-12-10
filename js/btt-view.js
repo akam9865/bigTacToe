@@ -11,19 +11,6 @@
 		this.bindEvents();
 	};
 	
-	// function makeBoardGrid() {
-	// 	var grid = [];
-	//
-	// 	for (var i = 0; i < 3; i++) {
-	// 		grid.push([]);
-	// 		for (var j = 0; j < 3; j++) {
-	//
-	// 			grid[i].push(new BTT.LittleGame());
-	// 		}
-	// 	}
-	// 	return grid;
-	// };
-	
 	View.prototype.bindEvents = function () {
 		var view = this;
 		
@@ -38,7 +25,6 @@
   View.prototype.makeMove = function ($littleSquare, $bigSquare) {
 		var innerPos = $littleSquare.data("inner-pos");
 		var outerPos = $bigSquare.data("outer-pos");
-		
 		var littleGame = this.game.board.grid[outerPos[0]][outerPos[1]];
 
 		// eventually handle more conditions
@@ -58,33 +44,7 @@
 			$bigSquare.text(littleGame.winner().toUpperCase());
 		}
 		
-		// if (game.board.isEmptyPos(innerPos)) {
-		// 	game.playMove(innerPos, this.currentPlayer);
-		//
-		// 	$littleSquare.addClass(this.currentPlayer);
-		// 	$littleSquare.text(this.currentPlayer);
-		// 	this.swapTurn();
-		//
-		// } else {
-		// 	alert("square is already occupied");
-		// }
-		
-		// if (game.isOver()) {
-		// 	// this.$boardEl.off("click");
-		// 	// turn off only this specific board
-		//
-		// 	var winner = game.winner();
-		// 	$bigSquare.text(winner.toUpperCase());
-		//
-		// 	// if (winner) {
-		// 	// 	$(".win-msg").append(winner + " wins");
-		// 	// } else {
-		// 	// 	$(".win-msg").append("draw");
-		// 	// }
-		// }
-		
 		if (this.game.isOver()) {
-			// alert(this.game.winner() + " wins!");
 			$(".message").text(this.game.winner() + " wins!");
 			$(".restart").addClass("gameover");
 		}
@@ -102,7 +62,6 @@
 				for (var j = 0; j < 3; j++) {
 					var $cell = $("<div class='inner-cell'>");
 					$cell.data("inner-pos", [i, j]);
-				
 					$row.append($cell);
 				}
 				$($bigBoard[k]).append($row);
@@ -110,15 +69,6 @@
 		}
 	};
 	
-	// View.prototype.swapTurn = function () {
-	//   if (this.currentPlayer === "x") {
-	//     this.currentPlayer = "o";
-	//   } else {
-	//     this.currentPlayer = "x";
-	//   }
-	// };
-	
-
 	View.prototype.setupBigBoard = function (){
 		for (var i = 0; i < 3; i++) {
 			var $row = $('<div class="outer-row"></div>');
@@ -126,12 +76,10 @@
 			for (var j = 0; j < 3; j++) {
 				var $cell = $('<div class="outer-cell">');
 				$cell.data("outer-pos", [i, j]);
-				
 				$row.append($cell);	
 			}
+			
 			this.$boardEl.find($(".board")).append($row);
 		}
-
 	};
-	
 })();
