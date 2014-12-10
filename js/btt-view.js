@@ -58,7 +58,7 @@
 			// turn off only this specific board
 			
 			var winner = game.winner();
-			$bigSquare.text(winner);
+			$bigSquare.text(winner.toUpperCase());
 			
 			// if (winner) {
 			// 	$(".win-msg").append(winner + " wins");
