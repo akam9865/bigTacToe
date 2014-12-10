@@ -84,7 +84,9 @@
 		// }
 		
 		if (this.game.isOver()) {
-			alert(this.game.winner() + " wins!");
+			// alert(this.game.winner() + " wins!");
+			$(".message").text(this.game.winner() + " wins!");
+			$(".restart").addClass("gameover");
 		}
   };
 	
