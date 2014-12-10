@@ -6,7 +6,7 @@
 	var View = BTT.View = function ($boardEl) {
 		this.$boardEl = $boardEl;
 		this.game = makeBoardGrid();
-		this.currentPlayer = "x"
+		this.currentPlayer = "x";
 
 		this.setupBoards();
 		this.bindEvents();
@@ -19,7 +19,7 @@
 			grid.push([]);
 			for (var j = 0; j < 3; j++) {
 
-				grid[i].push(new BTT.Game());
+				grid[i].push(new BTT.LittleGame());
 			}
 		}
 		return grid;
