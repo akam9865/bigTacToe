@@ -141,12 +141,15 @@
 	  return this.board.winner();
 	};
 	
+	
+	
+	
 	var BigGame = BTT.BigGame = function () {
 		this.board = makeBoardGrid();
 		this.currentPlayer = "x";
 	};
 	
-
+	
 	
 	function makeBoardGrid() {
 		var grid = [];
