@@ -34,6 +34,7 @@
 			this.game.playMove(innerPos, outerPos, littleGame);
 			$littleSquare.addClass(this.game.currentPlayer);
 			$littleSquare.text(this.game.currentPlayer);
+
 			
 			this.game.swapTurn();
 		} else {
