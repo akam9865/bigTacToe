@@ -123,7 +123,6 @@
 	  return this.board.winner();
 	};
 	
-	
 	var LittleGame = BTT.LittleGame = function () {
 		this.board = new BTT.LittleBoard();
 	};

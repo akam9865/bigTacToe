@@ -40,6 +40,11 @@ li {
 	padding: 20px;
 	font-size: 140px;
 	text-align: center;
+	background: rgba(0,0,0,.1);
+}
+
+.outer-cell.active {
+	background: none;
 }
 
 .outer-cell:last-child {

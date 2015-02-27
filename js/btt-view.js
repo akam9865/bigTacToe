@@ -14,12 +14,26 @@
 	View.prototype.bindEvents = function () {
 		var view = this;
 		
-		this.$boardEl.on("click", "div.outer-cell", function (event){
+		this.$boardEl.on("click", "div.outer-cell.active", function (event){
 			var $littleSquare = $(event.target);
 			var $bigSquare = $(event.currentTarget);
-
+			
+			view.assignActive($littleSquare);
 			view.makeMove($littleSquare, $bigSquare);			
 		});
+	};
+	
+	View.prototype.assignActive = function ($littleSquare) {
+		var innerPos = $littleSquare.data("innerPos");
+		var littleGame = this.game.board.grid[innerPos[0]][innerPos[1]];
+		
+		if (!littleGame || !littleGame.isOver) {
+			$('.outer-cell').addClass('active');
+		} else {
+			var $nextActive = $($($('.outer-row')[innerPos[0]]).children()[innerPos[1]]);
+			$('.outer-cell').removeClass('active');
+			$nextActive.addClass('active');
+		}
 	};
 	
   View.prototype.makeMove = function ($littleSquare, $bigSquare) {
@@ -35,7 +49,6 @@
 			$littleSquare.addClass(this.game.currentPlayer);
 			$littleSquare.text(this.game.currentPlayer);
 
-			
 			this.game.swapTurn();
 		} else {
 			alert("square is already occupied");
@@ -48,6 +61,7 @@
 		if (this.game.isOver()) {
 			$(".message").text(this.game.winner() + " wins!");
 			$(".restart").addClass("gameover");
+			$(".outer-cell").addClass('active');
 		}
   };
 	
@@ -75,7 +89,7 @@
 			var $row = $('<div class="outer-row"></div>');
 
 			for (var j = 0; j < 3; j++) {
-				var $cell = $('<div class="outer-cell">');
+				var $cell = $('<div class="outer-cell active">');
 				$cell.data("outer-pos", [i, j]);
 				$row.append($cell);	
 			}
