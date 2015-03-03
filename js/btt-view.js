@@ -18,16 +18,15 @@
 			var $littleSquare = $(event.target);
 			var $bigSquare = $(event.currentTarget);
 			
-			view.assignActive($littleSquare);
 			view.makeMove($littleSquare, $bigSquare);			
+			view.assignActive($littleSquare);
 		});
 	};
 	
 	View.prototype.assignActive = function ($littleSquare) {
 		var innerPos = $littleSquare.data("innerPos");
-		var littleGame = this.game.board.grid[innerPos[0]][innerPos[1]];
-		
-		if (!littleGame || !littleGame.isOver) {
+
+		if (!innerPos || !this.game.board.grid[innerPos[0]][innerPos[1]].isOver) {
 			$('.outer-cell').addClass('active');
 		} else {
 			var $nextActive = $($($('.outer-row')[innerPos[0]]).children()[innerPos[1]]);
@@ -62,6 +61,7 @@
 			$(".message").text(this.game.winner() + " wins!");
 			$(".restart").addClass("gameover");
 			$(".outer-cell").addClass('active');
+			this.$boardEl.off();
 		}
   };
 	
