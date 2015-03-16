@@ -39,10 +39,7 @@
 		var innerPos = $littleSquare.data("inner-pos");
 		var outerPos = $bigSquare.data("outer-pos");
 		var littleGame = this.game.board.grid[outerPos[0]][outerPos[1]];
-
-		// eventually handle more conditions
-		// probably with helper function from BigBoard class
-		
+	
 		if (littleGame.board.isEmptyPos(innerPos)) {
 			this.game.playMove(innerPos, outerPos, littleGame);
 			$littleSquare.addClass(this.game.currentPlayer);

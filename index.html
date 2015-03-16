@@ -10,7 +10,6 @@
   </head>
 	
   <body>
-		<!-- <h1>Big Tac Toe</h1> -->
 		<div class="btt">
 			<div class="board"></div>
 			
@@ -27,29 +26,22 @@
 					</ul>
 				</div>
 				
-				<div class="message">
-					
-				</div>
+				<div class="message"></div>
 				
-				<div class="restart">
-					
+				<div class="restart">	
 					<a href="javascript:window.location.href=window.location.href">
 						<button class="restart-button">Play Again</button>
 					</a>
-					
 				</div>
 				
 			</div>
 		</div>
 		
     <script src="js/jquery-2.1.1.js"></script>
-    <!-- Whackjobs at GithubPages don't understand symlinks... -->
-
     <script src="js/btt-view.js"></script>
     <script src="js/btt.js"></script>
 
     <script>
-      // Write your code here.
 			$(function () {
 				new BTT.View($("div.btt"));
 			});
